@@ -13,7 +13,7 @@ def processVideo(url):
 def generate_response():
     url = request.args.get('url', None)
     (score, comment1, comment2) = processVideo(url)
-    return ','.join([score, comment1, comment2])
+    return ','.join([str(score), comment1, comment2])
 
 
 if __name__ == "__main++":
