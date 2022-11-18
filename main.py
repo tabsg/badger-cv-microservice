@@ -1,13 +1,16 @@
 import os
 
 from flask import Flask, request
+from cover_drive_judge import CoverDriveJudge
 
 app = Flask(__name__)
 
 
 def processVideo(url):
-    return (0.2356, "Get better at cricket", "Don't play cricket")
-
+    #return (0.2356, "Get better at cricket", "Don't play cricket")
+    with CoverDriveJudge(url) as judge:
+        (averageScore, advice1, advice2) = judge.process_and_write_video()
+        return (averageScore, advice1, advice2)
 
 @app.route("/", methods=["GET"])
 def generate_response():
