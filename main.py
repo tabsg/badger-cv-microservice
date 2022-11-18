@@ -1,4 +1,5 @@
 import os
+import math
 
 from flask import Flask, request
 from cover_drive_judge import CoverDriveJudge
@@ -12,6 +13,8 @@ def processVideo(url):
     #return (0.2356, dodge_fix, "Don't play cricket")
     with CoverDriveJudge(dodge_fix) as judge:
         (averageScore, advice1, advice2) = judge.process_and_write_video()
+        if math.isnan(averageScore):
+            averageScore = 0
         return (averageScore, advice1, advice2)
 
 @app.route("/", methods=["GET"])
