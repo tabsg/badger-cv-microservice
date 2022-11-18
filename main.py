@@ -9,10 +9,10 @@ app = Flask(__name__)
 def processVideo(url):
     clean_url = unquote(url)
     dodge_fix = clean_url[:77] + "%2F" + clean_url[78:]
-    return (0.2356, dodge_fix, "Don't play cricket")
-    #with CoverDriveJudge(url) as judge:
-    #    (averageScore, advice1, advice2) = judge.process_and_write_video()
-    #    return (averageScore, advice1, advice2)
+    #return (0.2356, dodge_fix, "Don't play cricket")
+    with CoverDriveJudge(dodge_fix) as judge:
+        (averageScore, advice1, advice2) = judge.process_and_write_video()
+        return (averageScore, advice1, advice2)
 
 @app.route("/", methods=["GET"])
 def generate_response():
